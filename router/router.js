@@ -6,15 +6,15 @@ const knexConfig = {
 	connection: {
 		filename: './data/lambda.db3'
 	},
-	useNullAsDefault: true
+	useNullAsDefault: true //needed for sqlite
 };
 
 const db = knex(knexConfig);
 
 router.get('/', (req, res) => {
-	db()
-		.then(() => {
-			res.status(200).json();
+	db('cohorts')
+		.then((cohorts) => {
+			res.status(200).json(cohorts);
 		})
 		.catch((err) => {
 			console.log(err);
