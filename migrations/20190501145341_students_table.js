@@ -3,6 +3,9 @@ exports.up = function(knex, Promise) {
 		tbl.increments();
 		tbl.string('name', 120).notNullable();
 
+		// foreign key
+		tbl.integer('cohort_id').unsigned().reference('id').inTable('cohorts').onDelete('CASCADE').onUpdate('CASCADE');
+
 		tbl.timestamps(true, true);
 	});
 };
