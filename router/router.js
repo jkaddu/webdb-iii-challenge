@@ -39,7 +39,24 @@ router.get('/:id', (req, res) => {
 		});
 });
 
-// POST ZOO animal
+router.get('/:id/students', (req, res) => {
+	db('cohorts')
+		.where({ id: req.params.id })
+		.first()
+		.then((cohort) => {
+			if (cohort) {
+				res.status(200).json(cohort);
+			} else {
+				res.status(404).json({ message: 'Student not found.' });
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json(err);
+		});
+});
+
+// POST cohort
 router.post('/', (req, res) => {
 	if (!req.body.name) {
 		res.status(400).json({ message: 'Please provide a name.' });
